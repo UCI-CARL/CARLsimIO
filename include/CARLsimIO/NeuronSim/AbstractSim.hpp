@@ -2,6 +2,7 @@
 #define ABSTRACTSIM_HPP_
 
 #include <vector>
+#include <stddef.h>   // Linux/Pi5 size_t
 
 namespace carlsimio {
 
@@ -9,7 +10,7 @@ namespace carlsimio {
 	class AbstractSim {
 
 		public:
-			AbstractSim(size_t numNeurons);
+			AbstractSim(std::size_t numNeurons);
 			virtual ~AbstractSim();
 
 			const std::vector<unsigned>& getSpikes() { return spikeVector; }

@@ -317,7 +317,10 @@ void WbSensorInboundChannel::updateProperties(map<string, Property>& properties)
 					LOG(LOG_DEBUG) << "Sensor Prefix Property: " << m_sensorPrefix;
 				} else
 				if (paramName == SPIKES_LOG_NAME) {
-						string& tmpLogName = updateStringProperty(iter->second);
+//						string& tmpLogName = updateStringProperty(iter->second);
+// /home/ln/carlsimpp-t01/src/CARLsimIO/src/Channel/InboundChannel/WbSensorInboundChannel.cpp:320:90: error: cannot bind non-const lvalue reference of type ‘std::string&’ {aka ‘std::__cxx11::basic_string<char>&’} to an rvalue of type ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’}
+						string tmpLogName = updateStringProperty(iter->second);
+						
 						setSpikesLog(tmpLogName);
 						/*! Enable actication of spike logs during the simulation
 							Since the logging the header require the correct size of neurons, the function must be

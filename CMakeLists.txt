@@ -33,7 +33,7 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include ${CMAKE_BINARY_DIR}/include)
 
 
 #Boost Version
-set(CARLSIMIO_BOOST_VERSION "1.76" CACHE STRING "Exact Version of Boost")
+set(CARLSIMIO_BOOST_VERSION "1.74" CACHE STRING "Exact Version of Boost")
 
 #find package CARLsim  see nemo_cpu, if not found warning/status, default = OFF
 OPTION(CARLSIMIO_USE_CARLSIM "Uses CARLsim as Backend" ON)

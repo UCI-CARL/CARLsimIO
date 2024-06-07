@@ -30,8 +30,12 @@ using namespace yarp::carl;
 using namespace yarp::os;
 using namespace yarp::os::impl;
 
-
-#include <windows.h>
+#ifdef _MSC_VER // MSVC toolchain 
+#	include <windows.h>
+#else
+#   include <boost/thread/thread.hpp>
+#	define GetCurrentThreadId() boost::this_thread::get_id()
+#endif
 #define _CARLSIMIO_GET_TID GetCurrentThreadId()
 
 
@@ -67,7 +71,9 @@ public:
 
 		//ConstString &iso_timestamp = trade.time();
 		Value& msg_time = bottle.get(1);
-		ConstString& iso_timestamp = msg_time.asString();
+//		ConstString& iso_timestamp = msg_time.asString();
+//		/home/ln/carlsimpp-t01/src/CARLsimIO/src/Reader/YarpFiringReader.cpp:74:63: error: cannot bind non-const lvalue reference of type ‘yarp::os::ConstString&’ {aka ‘std::__cxx11::basic_string<char>&’} to an rvalue of type ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’}
+		ConstString iso_timestamp = msg_time.asString();
 
 		LOGS(LOG_INFO, m_reader->m_yarp_os) << "isoTimestamp: " << iso_timestamp; 
 

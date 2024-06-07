@@ -12,6 +12,13 @@
 #	endif
 #	include <boost/config.hpp>	// -> *
 #	endif
+#else
+# define CARLSIMIO_API 
 #endif // _MSC_VER
+
+#ifndef _MSC_VER // MSVC toolchain 
+      // https://stackoverflow.com/questions/59948723/how-to-use-sprintf-s-for-linux-c
+#     define sprintf_s(buf, n, ...) snprintf((buf), (n), __VA_ARGS__)
+#endif
 
 #endif // HEADER_CARLSIMIO_API_H_INCLUDED

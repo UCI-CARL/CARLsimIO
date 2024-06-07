@@ -46,6 +46,9 @@ IF (${CARLSIMIO_SUPPORT_YARP})
   INCLUDE_DIRECTORIES("${CMAKE_INSTALL_PREFIX}/include/yarp")
   INCLUDE_DIRECTORIES("${CMAKE_INSTALL_PREFIX}/include")
 
+# ISSUE Linux Pi5  does not find ACE, but it works for YARP and YarpDevCarlEpuck 
+#  find_package(ACE 6.5)  
+
 ENDIF (${CARLSIMIO_SUPPORT_YARP})
 
 IF (${CARLSIMIO_USE_CARLSIM})
@@ -54,6 +57,9 @@ IF (${CARLSIMIO_USE_CARLSIM})
 	SET(carlsim_HRDS "../include/CARLsimIO/NeuronSim/CarlsimSim.hpp")
 	SET(carlsim_SRC "NeuronSim/CarlsimSim.cpp")
 ENDIF (${CARLSIMIO_USE_CARLSIM})
+
+
+
 
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 SET(Boost_USE_MULTITHREADED ON)
@@ -235,21 +241,32 @@ IF (${CARLSIMIO_BUILD_SHARED_LIB})
 		TARGET_LINK_LIBRARIES(CARLsimIO YARP::YARP_sig)
 		TARGET_LINK_LIBRARIES(CARLsimIO YARP::YARP_dev)
 		# DEBUG ACE
-		TARGET_LINK_LIBRARIES(CARLsimIO "$ENV{ACE_ROOT}/lib/ACE$<$<CONFIG:Debug>:d>.lib")  
+		
+		#TARGET_LINK_LIBRARIES(CARLsimIO "$ENV{ACE_ROOT}/lib/ACE$<$<CONFIG:Debug>:d>.lib")  
+		#TARGET_LINK_LIBRARIES(CARLsimIO "$ENV{ACE_ROOT}/lib/ACE.lib")  	
 		#TARGET_LINK_LIBRARIES(CARLsimIO "$ENV{ACE_ROOT}/lib/ACE.lib")  	
 		#target_link_libraries(CARLsimIO ACE::ACE)
+		# Linux Pi5 /usr/lib/aarch64-linux-gnu
+		TARGET_LINK_LIBRARIES(CARLsimIO "$ENV{ACE_ROOT}/libACE.so") 	
+
 	ENDIF (${CARLSIMIO_SUPPORT_YARP})
 
 	if(${CARLSIMIO_USE_CARLSIM})	
-		target_link_libraries(CARLsimIO ${CMAKE_INSTALL_PREFIX}/lib/carlsim$<$<CONFIG:Debug>:d>.lib)    
+		target_link_libraries(CARLsimIO 
+			# ${CMAKE_INSTALL_PREFIX}/lib/carlsim$<$<CONFIG:Debug>:d>.lib
+			#/home/ln/carlsimpp-t01/build/install/lib/libcarlsim.so.6.1.0  # Linux Pi5
+			${CMAKE_INSTALL_PREFIX}/lib/libcarlsim$<$<CONFIG:Debug>:d>.so
+
+			)    
 	endif()
 
 	SET_TARGET_PROPERTIES(CARLsimIO
 		PROPERTIES 
-      VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}"
-      COMPILE_DEFINITIONS "CARLSIMIO_MSVC_DLL"	  		 
-		  COMPILE_FLAGS "/MP"
+      		VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}"
+      		COMPILE_DEFINITIONS "CARLSIMIO_MSVC_DLL"	  		 
+#		COMPILE_FLAGS "/MP"	#PATCH Linux Pi5
 		DEFINE_SYMBOL BOOST_THREAD_USE_DLL
 		CLEAN_DIRECT_OUTPUT 1)
+
 	INSTALL(TARGETS CARLsimIO DESTINATION bin)
 ENDIF(${CARLSIMIO_BUILD_SHARED_LIB})
