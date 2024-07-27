@@ -16,6 +16,22 @@ using namespace carlsimio;
 #include <algorithm>
 
 
+/*! x */
+vector<double> Common::doublesFromString(const string stringValue)
+{
+	vector<double> doubles;
+	typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+	boost::char_separator<char> sep1(";");  // Level 1  // ISSUE: Use ; instead? -> see barsecsFormString
+	tokenizer tokens1(stringValue, sep1);
+	for (tokenizer::iterator iter1 = tokens1.begin();
+		iter1 != tokens1.end(); ++iter1)
+	{
+		doubles.push_back(boost::lexical_cast<double>(*iter1));
+	}
+	return doubles;
+}
+
+
 
 /** Writes the supplied image to file */
 void Common::savePPMImage(const char* filename, Bitmap* image){

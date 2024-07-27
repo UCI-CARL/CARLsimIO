@@ -219,6 +219,7 @@ void WbActuatorOutboundChannel::step() {
 
 				// patch topografic index
 				auto oj = offset + j;
+
 				if (perm)
 					oj = (*perm)[oj];
 
@@ -232,7 +233,7 @@ void WbActuatorOutboundChannel::step() {
 
 			//Calculate new value
 			if (abs(weightSum) > m_threshold) {
-				actuatorValue[double_i] = valueSum / weightSum;
+				actuatorValue[double_i] = valueSum;
 				decoded++;
 				blog = true;
 			}

@@ -75,6 +75,7 @@ ENDIF (NOT DEFINED project_build_shared)
 
 SET(project_HRDRS
   ../include/CARLsimIO/api.hpp
+  ../include/CARLsimIO/AkdYoloEvent.hpp
   ../include/CARLsimIO/Bitmap.hpp
   ../include/CARLsimIO/Channel/Channel.hpp
   ../include/CARLsimIO/Channel/OutboundChannel/OutboundChannel.hpp
@@ -85,6 +86,7 @@ SET(project_HRDRS
   ../include/CARLsimIO/Channel/InboundChannel/InboundChannelFactory.hpp
   ../include/CARLsimIO/Channel/InboundChannel/FiringInboundChannel.hpp
   ../include/CARLsimIO/Channel/InboundChannel/WbSensorInboundChannel.hpp   # Webots SensorArray -> Vector of Integer values like Distance-/Light Sensor (8x), ToF Sensor (1x), Wheels (2x)
+  ../include/CARLsimIO/Channel/InboundChannel/AkdYoloInboundChannel.hpp   
   ../include/CARLsimIO/Common.hpp
   ../include/CARLsimIO/Description.hpp
   ../include/CARLsimIO/CARLsimIOException.hpp
@@ -102,6 +104,7 @@ SET(project_HRDRS
   ../include/CARLsimIO/Reader/ReaderFactory.hpp
   ../include/CARLsimIO/Reader/FileWbSensorReader.hpp
   ../include/CARLsimIO/Reader/WbSensorReader.hpp
+  ../include/CARLsimIO/Reader/AkdYoloReader.hpp
   ../include/CARLsimIO/version.h
   ../include/CARLsimIO/Writer/Writer.hpp
   ../include/CARLsimIO/Writer/WriterFactory.hpp
@@ -113,6 +116,7 @@ IF (${CARLSIMIO_SUPPORT_YARP})
 list(APPEND project_HRDRS
 	../include/CARLsimIO/Reader/YarpFiringReader.hpp
 	../include/CARLsimIO/Reader/YarpWbSensorReader.hpp
+	../include/CARLsimIO/Reader/YarpAkdYoloReader.hpp
 	../include/CARLsimIO/Writer/YarpFiringWriter.hpp 
 	../include/CARLsimIO/Writer/YarpWbActuatorWriter.hpp 
 )
@@ -128,6 +132,7 @@ SOURCE_GROUP("Header Files\\Channel\\InboundChannel" FILES
   ../include/CARLsimIO/Channel/InboundChannel/InboundChannelFactory.hpp
   ../include/CARLsimIO/Channel/InboundChannel/FiringInboundChannel.hpp
   ../include/CARLsimIO/Channel/InboundChannel/WbSensorInboundChannel.hpp
+  ../include/CARLsimIO/Channel/InboundChannel/AkdYoloInboundChannel.hpp
 )
 
 SOURCE_GROUP("Header Files\\Channel\\OutboundChannel" FILES  
@@ -157,6 +162,7 @@ SOURCE_GROUP("Header Files\\Reader" FILES
   ../include/CARLsimIO/Reader/FiringReader.hpp
   ../include/CARLsimIO/Reader/FileWbSensorReader.hpp    # consistency with Yarp Prefix
   ../include/CARLsimIO/Reader/WbSensorReader.hpp
+  ../include/CARLsimIO/Reader/AkdYoloReader.hpp
 )
 
 SOURCE_GROUP("Header Files\\Writer" FILES  
@@ -170,6 +176,7 @@ IF (${CARLSIMIO_SUPPORT_YARP})
 SOURCE_GROUP("Header Files\\YARP" FILES  
   ../include/CARLsimIO/Reader/YarpFiringReader.hpp
   ../include/CARLsimIO/Reader/YarpWbSensorReader.hpp
+  ../include/CARLsimIO/Reader/YarpAkdYoloReader.hpp
   ../include/CARLsimIO/Writer/YarpFiringWriter.hpp  
   ../include/CARLsimIO/Writer/YarpWbActuatorWriter.hpp  
 )
@@ -181,6 +188,7 @@ SET(project_SRCS
 	Channel/InboundChannel/InboundChannelFactory.cpp
 	Channel/InboundChannel/FiringInboundChannel.cpp
 	Channel/InboundChannel/WbSensorInboundChannel.cpp
+	Channel/InboundChannel/AkdYoloInboundChannel.cpp
     Channel/OutboundChannel/OutboundChannelFactory.cpp
     Channel/OutboundChannel/FiringOutboundChannel.cpp
     Channel/OutboundChannel/WbActuatorOutboundChannel.cpp
@@ -199,6 +207,7 @@ SET(project_SRCS
     Reader/FiringReader.cpp
     Reader/FileWbSensorReader.cpp
     Reader/WbSensorReader.cpp
+    Reader/AkdYoloReader.cpp
     Writer/WriterFactory.cpp
     Writer/FiringWriter.cpp
     Writer/WbActuatorWriter.cpp
@@ -209,6 +218,7 @@ IF (${CARLSIMIO_SUPPORT_YARP})
 	list(APPEND project_SRCS
 		Reader/YarpFiringReader.cpp
 		Reader/YarpWbSensorReader.cpp
+		Reader/YarpAkdYoloReader.cpp
 		Writer/YarpFiringWriter.cpp
 		Writer/YarpWbActuatorWriter.cpp
     )
