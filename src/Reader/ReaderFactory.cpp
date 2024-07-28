@@ -2,10 +2,12 @@
 #include <CARLsimIO/Reader/ReaderFactory.hpp>
 #include <CARLsimIO/Reader/FiringReader.hpp>
 #include <CARLsimIO/Reader/WbSensorReader.hpp>
+#include <CARLsimIO/Reader/AkdYoloReader.hpp>
 
 #ifdef CARLSIMIO_SUPPORT_YARP
 #include <CARLsimIO/Reader/YarpFiringReader.hpp>
 #include <CARLsimIO/Reader/YarpWbSensorReader.hpp>
+#include <CARLsimIO/Reader/YarpAkdYoloReader.hpp>
 #endif 
 
 #include "CARLsimIO/CARLsimIOException.hpp"
@@ -23,6 +25,7 @@ LOG(LOG_DEBUG)<< __FUNCTION__;
 #ifdef CARLSIMIO_SUPPORT_YARP
 	this->readerList.push_back(YarpFiringReader().getReaderDescription());  
 	this->readerList.push_back(YarpWbSensorReader().getReaderDescription());
+	this->readerList.push_back(YarpAkdYoloReader().getReaderDescription());
 #endif 
 	printReaders();
 }
@@ -34,6 +37,7 @@ LOG(LOG_DEBUG)<< __FUNCTION__;
 #ifdef CARLSIMIO_SUPPORT_YARP
 	this->readerList.push_back(YarpFiringReader().getReaderDescription());  
 	this->readerList.push_back(YarpWbSensorReader().getReaderDescription());
+	this->readerList.push_back(YarpAkdYoloReader().getReaderDescription());
 #endif 
 	printReaders();
 
@@ -63,6 +67,9 @@ map<string, Property> ReaderFactory::getDefaultProperties(Description& desc){
 	} else
 	if (desc.getName() == "Yarp WbSensor Reader") {
 		return YarpWbSensorReader().getProperties();
+	} else
+	if (desc.getName() == "Yarp Yolo Reader") {
+		return YarpAkdYoloReader().getProperties();
 	}
 #endif 
 	throw CARLsimIOException("Invalid reader");
@@ -79,6 +86,9 @@ Reader* ReaderFactory::create(Description& desc, map<string, Property>& readerPr
 	} else
 	if (desc.getName() == "Yarp WbSensor Reader") {
 		result = new YarpWbSensorReader();
+	} else
+	if (desc.getName() == "Yarp Yolo Reader") {
+		result = new YarpAkdYoloReader();
 	}
 #endif 
 	else {

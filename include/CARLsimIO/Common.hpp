@@ -52,7 +52,11 @@ namespace carlsimio {
 				}
 			}
 
-			/*! iSpike Legacy */
+
+			static vector<double> doublesFromString(const string stringValue);
+
+
+			/*! Legacy */
 			static void savePPMImage(const char* filename, Bitmap* image);
 			static void writePatternToFile(const char* fileName, vector<int> pattern, int numOfNeurons);
 

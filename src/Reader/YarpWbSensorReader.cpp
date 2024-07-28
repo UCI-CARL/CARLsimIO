@@ -372,6 +372,8 @@ void YarpWbSensorReader::start() {
 		else
 			LOGS(LOG_INFO, m_yarp_os) << "Connection between reading and writing port exists.";
 
+		// opt retry
+
 		// end critical section
 	}
 	else

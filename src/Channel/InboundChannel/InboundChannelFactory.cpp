@@ -2,6 +2,7 @@
 #include <CARLsimIO/Channel/InboundChannel/InboundChannelFactory.hpp>
 #include <CARLsimIO/Channel/InboundChannel/FiringInboundChannel.hpp>
 #include <CARLsimIO/Channel/InboundChannel/WbSensorInboundChannel.hpp>
+#include <CARLsimIO/Channel/InboundChannel/AkdYoloInboundChannel.hpp>
 #include <CARLsimIO/Reader/Reader.hpp>
 #include <CARLsimIO/Reader/ReaderFactory.hpp>
 #include <CARLsimIO/Reader/FiringReader.hpp>
@@ -16,6 +17,7 @@ using namespace carlsimio;
 InboundChannelFactory::InboundChannelFactory(){
 	channelList.push_back(FiringInboundChannel().getChannelDescription());
 	channelList.push_back(WbSensorInboundChannel().getChannelDescription());
+	channelList.push_back(AkdYoloInboundChannel().getChannelDescription());
 	printInboundChannels();
 }
 
@@ -38,6 +40,12 @@ InboundChannel* InboundChannelFactory::create(Description& desc, Reader* reader,
 		channel->initialize(reader, channelProperties);
 		return channel;
 	}
+	else
+	if (desc.getName() == "Yolo Inbound Channel") {
+		AkdYoloInboundChannel* channel = new AkdYoloInboundChannel();
+		channel->initialize(reader, channelProperties);
+		return channel;
+	}
 
 	throw CARLsimIOException("Invalid channel name");
 }
@@ -51,6 +59,9 @@ map<string, Property> InboundChannelFactory::getDefaultProperties(Description& d
 	} else
 	if (desc.getName() == "WbSensor Inbound Channel") {
 		return WbSensorInboundChannel().getProperties();;
+	} else
+	if (desc.getName() == "Yolo Inbound Channel") {
+		return AkdYoloInboundChannel().getProperties();;
 	}
 	throw CARLsimIOException("Invalid inbound channel");
 }
