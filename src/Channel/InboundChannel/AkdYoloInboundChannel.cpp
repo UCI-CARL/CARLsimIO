@@ -424,27 +424,27 @@ void AkdYoloInboundChannel::updateProperties(map<string, Property>& properties) 
 					//	LOG(LOG_DEBUG) << "Security Property: " << tmpSecurities;   // see ::initialize how the value is transfered to the Reader																					// in the Channel only the amount of securities is relevant
 					//} else 
 					if(paramName == PROB_MIN_NAME) {
-						string &tmp = updateStringProperty(iter->second); 
+						string tmp = updateStringProperty(iter->second); 
 						LOG(LOG_DEBUG) << "Profit Min Property: " << tmp;
 					} else
 					if(paramName == PROB_MAX_NAME) {
-						string &tmp = updateStringProperty(iter->second); 
+						string tmp = updateStringProperty(iter->second); 
 						LOG(LOG_DEBUG) << "Profit Max Property: " << tmp;
 					} else
 					if(paramName == DIR_MIN_NAME) {
-						string &tmp = updateStringProperty(iter->second); 
+						string tmp = updateStringProperty(iter->second); 
 						LOG(LOG_DEBUG) << "Percent Min Property: " << tmp;
 					} else
 					if(paramName == DIR_MAX_NAME) {
-						string &tmp = updateStringProperty(iter->second); 
+						string tmp = updateStringProperty(iter->second); 
 						LOG(LOG_DEBUG) << "Percent Max Property: " << tmp;
 					} else
 					if(paramName == DIST_MIN_NAME) {
-						string &tmp = updateStringProperty(iter->second); 
+						string tmp = updateStringProperty(iter->second); 
 						LOG(LOG_DEBUG) << "Points Min Property: " << tmp;
 					} else
 					if(paramName == DIST_MAX_NAME) {
-						string &tmp = updateStringProperty(iter->second); 
+						string tmp = updateStringProperty(iter->second); 
 						LOG(LOG_DEBUG) << "Points Max Property: " << tmp;
 					} else
 					if(paramName == SPIKES_LOG_NAME) {

@@ -33,6 +33,13 @@ using namespace yarp::carl;
 using namespace yarp::os;
 using namespace yarp::os::impl;
 
+#ifdef _MSC_VER // MSVC toolchain 
+#	include <windows.h>
+#else
+#   include <boost/thread/thread.hpp>
+#	define GetCurrentThreadId() boost::this_thread::get_id()
+#endif
+#define _CARLSIMIO_GET_TID GetCurrentThreadId()
 
 // abstract
 class YarpAkdYoloReader::YarpDataProcessor {
